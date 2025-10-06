@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import FooterSecren from "./components/FooterSecren.vue";
 import HeroSection from "./components/Hero.vue";
 import InvestmentOpportunities from "./components/InvestmentOpportunity.vue"
@@ -13,4 +13,7 @@ import MapInfo from "./components/MapInfo.vue";
   <FooterSecren/>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->
+<template>
+  <router-view />
+</template>
