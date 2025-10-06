@@ -7,9 +7,8 @@
       :wrapAround="true"
       :mouseDrag="true"
       :snapAlign="'center'"
-      :autoplayTimeout="8000"  
+      :autoplayTimeout="8000"
       :transition="300"
-      :showArrows="true"
       class="mb-6"
     >
       <Slide v-for="(card, i) in cards" :key="card.title">
@@ -28,16 +27,16 @@
       </Slide>
     </Carousel>
 
-    <!-- Konten yang berubah sesuai kartu -->
-    <div class="border rounded-lg p-6 shadow-lg">
-      <img
+   <div v-if="selectedCard && selectedCard.title && selectedCard.description && selectedCard.image" class="border rounded-lg p-6 shadow-lg mt-6">
+    <img
         :src="selectedCard.image"
         alt="image"
         class="rounded-lg w-full h-40 object-cover mb-4"
-      />
-      <h2 class="font-bold text-xl mb-2">{{ selectedCard.title }}</h2>
-      <p class="text-sm text-gray-700">{{ selectedCard.description }}</p>
+    />
+    <h2 class="font-bold text-xl mb-2">{{ selectedCard.title }}</h2>
+    <p class="text-sm text-gray-700">{{ selectedCard.description }}</p>
     </div>
+
 
   </div>
 </template>
@@ -55,7 +54,6 @@ interface CardItem {
   description: string
 }
 
-// Data kartu
 const cards = ref<CardItem[]>([
   {
     title: 'PERIKANAN',
@@ -95,17 +93,22 @@ const cards = ref<CardItem[]>([
   }
 ])
 
-// Index kartu aktif
 const activeIndex = ref(1)
 
-// Fungsi pilih kartu dan update active status
 function selectCard(index: number) {
   activeIndex.value = index
   cards.value.forEach((c, i) => (c.active = i === index))
 }
 
-// computed untuk kartu aktif
-const selectedCard = computed(() => cards.value[activeIndex.value])
+const selectedCard = computed<CardItem>(() => {
+  return cards.value[activeIndex.value] ?? {
+    title: '',
+    icon: '',
+    active: false,
+    image: '',
+    description: '',
+  }
+})
 </script>
 
 <style scoped>
