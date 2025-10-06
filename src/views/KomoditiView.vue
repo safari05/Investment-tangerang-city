@@ -28,10 +28,10 @@ const daftarKomoditas = [
 
 <template>
    <NavbarScreen />
-    <section class="relative min-h-screen overflow-hidden">
+    <section class="relative min-h-screen overflow-hidden pt-20">
     <!-- 🌈 Animated Gradient Background -->
     <div
-      class="absolute inset-0 bg-gradient-to-br from-green-100 via-white to-green-50 animate-gradient-slow"
+      class="absolute inset-0 bg-gradient-to-br from-green-100 via-white to-green-50 animate-gradient-slow pt-20"
     ></div>
 
     <!-- ✨ Overlay pattern dots -->
