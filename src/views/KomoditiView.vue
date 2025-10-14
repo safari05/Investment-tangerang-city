@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import FooterSecren from '../components/FooterSecren.vue';
 import LeftKomoditi from '../components/LeftKomoditi.vue';
 import NavbarScreen from '../components/NavbarScreen.vue';
@@ -24,6 +25,19 @@ const daftarKomoditas = [
     keterangan: "Produksi berkelanjutan",
   },
 ];
+
+interface Marker {
+  lat: number;
+  lng: number;
+  title: string;
+}
+
+const selectedMarkers = ref<Marker[]>([]);
+
+const handleShowMarkers = (markers: Marker[]) => {
+  selectedMarkers.value = markers;
+};
+
 </script>
 
 <template>
@@ -38,8 +52,8 @@ const daftarKomoditas = [
     <div
       class="relative z-10 max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
     >
-      <LeftKomoditi class="sm:col-span-1 transition-transform duration-500 hover:-translate-y-1" />
-      <RightMap class="sm:col-span-2 transition-transform duration-500 hover:-translate-y-1" />
+      <LeftKomoditi class="sm:col-span-1 transition-transform duration-500 hover:-translate-y-1" @showMarkers="handleShowMarkers" />
+      <RightMap :markers="selectedMarkers" class="sm:col-span-2 transition-transform duration-500 hover:-translate-y-1" />
     </div>
 
     <!-- 📊 Tabel Daftar Komoditas -->
