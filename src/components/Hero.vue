@@ -15,15 +15,24 @@
       <h1 class="text-6xl font-bold tracking-wide animate-bounce-slow">
         POINT
       </h1>
-
+     
       <p
         class="text-xl mt-3 font-medium bg-white/10 px-6 py-2 rounded-full inline-block"
       >
         Peta Potensi Dan Peluang Investasi - Kota Tangerang
       </p>
 
+       <div class="mt-6 container w-full grid grid-cols-12 mx-auto bg-green-600 rounded-2xl p-6">
+        <p class="col-span-12 text-white">
+          POINT (Potential Opportunity and Investment) Kota Tangerang merupakan Mall Pusat Informasi
+          Kota Tangerang berbasis platform WebGIS yang menyajikan informasi dan data strategis sektor
+          unggulan, komoditas unggulan, peta potensi, serta peluang investasi, dilengkapi data daya
+          dukung wilayah, baik di tingkat kabupaten/kota.
+        </p>
+      </div>
+
       <!-- Cards -->
-      <div
+      <!-- <div
         class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto"
       >
         <div class="bg-green-600 text-white p-6 rounded-xl shadow-lg">
@@ -71,7 +80,7 @@
             >
           </p>
         </div>
-      </div>
+      </div> -->
 
       <!-- External link (opens in new tab) -->
       <a
