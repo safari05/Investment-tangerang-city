@@ -4,21 +4,40 @@ import FooterSecren from '../components/FooterSecren.vue';
 import LeftKomoditi from '../components/LeftKomoditi.vue';
 import NavbarScreen from '../components/NavbarScreen.vue';
 import RightMap from '../components/RightMap.vue';
+import SampleChart from '../components/SampleChart.vue';
 
 const daftarKomoditas = [
   {
-    nama: "Kopi Arabika",
+    nama: "Padi",
     kategori: "Pertanian",
     lokasi: "Cisoka",
     keterangan: "Potensi ekspor tinggi",
     image: "/images/pertanian.jpg",
+    informasi: {
+      luasPanen: "1.04 Juta Hektar (2021)",
+      produktivitas: "5.14 Ton/Hektar (2021)",
+      totalProduksi: "53.55 Juta Ton (2021)",
+      konsumsi: "94.38 Ribu Kg/Kapita (2021)",
+      luasTanam: "11.07 Juta Hektar (2021)",
+      sentra: "Kota Tangerang",
+      produksi: "Kota Tangerang | Cisoka",
+    },
   },
   {
-    nama: "Industri Tekstil",
-    kategori: "Industri",
+    nama: "Bayam",
+    kategori: "Pertanian",
     lokasi: "Jatiuwung",
     keterangan: "Memiliki fasilitas lengkap",
-    image: "/images/perindustrian.jpg",
+    image: "/images/pertanian.jpg",
+    informasi: {
+      luasPanen: "68.24 Juta Hektar (2021)",
+      produktivitas: "2.02 Ton/Hektar (2021)",
+      totalProduksi: "53.55 Juta Ton (2021)",
+      konsumsi: "37.0 Ribu Kg/Kapita (2021)",
+      luasTanam: "68.24 Juta Hektar (2021)",
+      sentra: "Kota Tangerang",
+      produksi: "Kota Tangerang | Jatiuwung",
+    },
   },
   {
     nama: "Buah Naga Merah",
@@ -49,9 +68,18 @@ const activeItem = ref<{
   lokasi: string
   keterangan: string
   image?: string
+  informasi?: {
+    luasPanen?: string
+    produktivitas?: string
+    totalProduksi?: string
+    konsumsi?: string
+    luasTanam?: string
+    sentra?: string
+    produksi?: string
+  }
 } | null>(null)
 
-const openModal = (item: { nama: string; kategori: string; lokasi: string; keterangan: string; image?: string }) => {
+const openModal = (item: { nama: string; kategori: string; lokasi: string; keterangan: string; image?: string; informasi?: any }) => {
   activeItem.value = item
   showModal.value = true
 }
@@ -77,6 +105,7 @@ const closeModal = () => {
     >
       <LeftKomoditi class="sm:col-span-1 transition-transform duration-500 hover:-translate-y-1" @showMarkers="handleShowMarkers" />
       <RightMap :markers="selectedMarkers" class="sm:col-span-2 transition-transform duration-500 hover:-translate-y-1" />
+      
     </div>
 
     <!-- 📊 Tabel Daftar Komoditas -->
@@ -140,51 +169,87 @@ const closeModal = () => {
           </tbody>
         </table>
       </div>
+      <SampleChart class="mt-10"/>
     </div>
     
     <!-- Modal -->
     <transition name="fade">
-      <div
-        v-if="showModal"
-        class="fixed inset-0 z-50 flex items-center justify-center px-4"
-      >
-        <!-- backdrop -->
-        <div
-          class="absolute inset-0 bg-black/50"
-          @click="closeModal"
-        ></div>
+  <div
+    v-if="showModal"
+    class="fixed inset-0 z-50 flex items-center justify-center px-4"
+  >
+    <div class="absolute inset-0 bg-black/50" @click="closeModal"></div>
 
-        <!-- modal panel (larger, with image) -->
-        <div class="relative z-10 w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
-          <!-- image -->
-          <div class="w-full h-64 sm:h-80 bg-gray-100">
-            <img
-              :src="activeItem?.image || '/images/background_hero_1.jpg'"
-              alt="Image"
-              class="w-full h-full object-cover"
-            />
-          </div>
+    <div class="relative z-10 w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-y-auto max-h-[90vh]">
+      <div class="w-full h-64 sm:h-80 bg-gray-100">
+        <img
+          :src="activeItem?.image || '/images/background_hero_1.jpg'"
+          alt="Image"
+          class="w-full h-full object-cover"
+        />
+      </div>
 
-          <div class="p-6">
-            <div class="flex items-start justify-between">
-              <h3 class="text-2xl font-semibold text-gray-800">{{ activeItem?.nama }}</h3>
-              <button class="text-gray-400 hover:text-gray-600 text-xl" @click="closeModal">✕</button>
-            </div>
+      <div class="p-6">
+        <div class="flex items-start justify-between">
+          <h3 class="text-2xl font-semibold text-gray-800">{{ activeItem?.nama }}</h3>
+          <button class="text-gray-400 hover:text-gray-600 text-xl" @click="closeModal">✕</button>
+        </div>
 
-            <div class="mt-4 text-base text-gray-700">
-              <p class="mb-2"><strong>Kategori:</strong> {{ activeItem?.kategori }}</p>
-              <p class="mb-2"><strong>Lokasi:</strong> {{ activeItem?.lokasi }}</p>
-              <p class="mb-2"><strong>Keterangan:</strong> {{ activeItem?.keterangan }}</p>
-            </div>
+        <div class="mt-4 text-base text-gray-700">
+          <p class="mb-2"><strong>Kategori:</strong> {{ activeItem?.kategori }}</p>
+          <p class="mb-2"><strong>Lokasi:</strong> {{ activeItem?.lokasi }}</p>
+          <p class="mb-2"><strong>Keterangan:</strong> {{ activeItem?.keterangan }}</p>
+        </div>
 
-            <div class="mt-6 flex justify-end">
-              <button class="bg-green-600 text-white px-5 py-2 rounded-lg shadow hover:bg-green-700" @click="closeModal">Tutup</button>
-            </div>
-          </div>
+
+<!-- Informasi Detail -->
+<div v-if="activeItem?.informasi" class="mt-6 border-t pt-6">
+  <h4 class="text-lg font-semibold mb-4 text-green-700">Informasi Detail</h4>
+
+  <!-- dua kolom di layar besar -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <ul class="space-y-1">
+      <li><strong>Luas Panen:</strong> {{ activeItem.informasi.luasPanen }}</li>
+      <li><strong>Produktivitas:</strong> {{ activeItem.informasi.produktivitas }}</li>
+      <li><strong>Total Produksi:</strong> {{ activeItem.informasi.totalProduksi }}</li>
+      <li><strong>Konsumsi:</strong> {{ activeItem.informasi.konsumsi }}</li>
+    </ul>
+    <ul class="space-y-1">
+      <li><strong>Luas Tanam:</strong> {{ activeItem.informasi.luasTanam }}</li>
+      <li><strong>Sentra:</strong> {{ activeItem.informasi.sentra }}</li>
+      <li><strong>Produksi:</strong> {{ activeItem.informasi.produksi }}</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 🎯 Chart khusus Bayam -->
+<div
+  v-if="activeItem?.nama === 'Bayam'"
+  class="mt-8 border-t pt-6"
+>
+  <h4 class="text-lg font-semibold text-green-700 mb-3">
+    Grafik Produksi Bayam
+  </h4>
+  <SampleChart class="max-w-3xl mx-auto" />
+</div>
+
+
+        <div class="mt-6 flex justify-end">
+          <button
+            class="bg-green-600 text-white px-5 py-2 rounded-lg shadow hover:bg-green-700"
+            @click="closeModal"
+          >
+            Tutup
+          </button>
         </div>
       </div>
-    </transition>
+    </div>
+  </div>
+</transition>
+
+    
   </section>
+  
   <FooterSecren/>
 </template>
 
