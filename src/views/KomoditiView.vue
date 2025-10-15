@@ -11,18 +11,21 @@ const daftarKomoditas = [
     kategori: "Pertanian",
     lokasi: "Cisoka",
     keterangan: "Potensi ekspor tinggi",
+    image: "/images/pertanian.jpg",
   },
   {
     nama: "Industri Tekstil",
     kategori: "Industri",
     lokasi: "Jatiuwung",
     keterangan: "Memiliki fasilitas lengkap",
+    image: "/images/perindustrian.jpg",
   },
   {
     nama: "Buah Naga Merah",
     kategori: "Holtikultura",
     lokasi: "Ciledug",
     keterangan: "Produksi berkelanjutan",
+    image: "/images/pertanian.jpg",
   },
 ];
 
@@ -45,9 +48,10 @@ const activeItem = ref<{
   kategori: string
   lokasi: string
   keterangan: string
+  image?: string
 } | null>(null)
 
-const openModal = (item: { nama: string; kategori: string; lokasi: string; keterangan: string }) => {
+const openModal = (item: { nama: string; kategori: string; lokasi: string; keterangan: string; image?: string }) => {
   activeItem.value = item
   showModal.value = true
 }
@@ -150,22 +154,31 @@ const closeModal = () => {
           @click="closeModal"
         ></div>
 
-        <!-- modal panel -->
-        <div class="relative z-10 w-full max-w-xl bg-white rounded-2xl shadow-xl overflow-hidden">
+        <!-- modal panel (larger, with image) -->
+        <div class="relative z-10 w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
+          <!-- image -->
+          <div class="w-full h-64 sm:h-80 bg-gray-100">
+            <img
+              :src="activeItem?.image || '/images/background_hero_1.jpg'"
+              alt="Image"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
           <div class="p-6">
             <div class="flex items-start justify-between">
-              <h3 class="text-xl font-semibold text-gray-800">{{ activeItem?.nama }}</h3>
-              <button class="text-gray-400 hover:text-gray-600" @click="closeModal">✕</button>
+              <h3 class="text-2xl font-semibold text-gray-800">{{ activeItem?.nama }}</h3>
+              <button class="text-gray-400 hover:text-gray-600 text-xl" @click="closeModal">✕</button>
             </div>
 
-            <div class="mt-4 text-sm text-gray-700">
-              <p><strong>Kategori:</strong> {{ activeItem?.kategori }}</p>
-              <p class="mt-2"><strong>Lokasi:</strong> {{ activeItem?.lokasi }}</p>
-              <p class="mt-2"><strong>Keterangan:</strong> {{ activeItem?.keterangan }}</p>
+            <div class="mt-4 text-base text-gray-700">
+              <p class="mb-2"><strong>Kategori:</strong> {{ activeItem?.kategori }}</p>
+              <p class="mb-2"><strong>Lokasi:</strong> {{ activeItem?.lokasi }}</p>
+              <p class="mb-2"><strong>Keterangan:</strong> {{ activeItem?.keterangan }}</p>
             </div>
 
             <div class="mt-6 flex justify-end">
-              <button class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700" @click="closeModal">Tutup</button>
+              <button class="bg-green-600 text-white px-5 py-2 rounded-lg shadow hover:bg-green-700" @click="closeModal">Tutup</button>
             </div>
           </div>
         </div>
