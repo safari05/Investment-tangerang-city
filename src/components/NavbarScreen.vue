@@ -27,7 +27,7 @@ const toggleMobile = ref(false);
         <!-- Menu links (desktop) -->
         <div class="hidden md:flex space-x-6">
           <router-link to="/" class="text-gray-700 hover:text-green-700 transition">Beranda</router-link>
-          <router-link to="/komoditi" class="text-gray-700 hover:text-green-700 transition">Komoditi Unggulan</router-link>
+          <router-link to="/komoditi" class="text-gray-700 hover:text-green-700 transition">Sektor Unggulan</router-link>
         </div>
         <!-- Hamburger mobile -->
         <div class="md:hidden">
