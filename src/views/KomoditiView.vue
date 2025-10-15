@@ -38,6 +38,25 @@ const handleShowMarkers = (markers: Marker[]) => {
   selectedMarkers.value = markers;
 };
 
+// Modal state for showing komoditas details
+const showModal = ref(false)
+const activeItem = ref<{
+  nama: string
+  kategori: string
+  lokasi: string
+  keterangan: string
+} | null>(null)
+
+const openModal = (item: { nama: string; kategori: string; lokasi: string; keterangan: string }) => {
+  activeItem.value = item
+  showModal.value = true
+}
+
+const closeModal = () => {
+  showModal.value = false
+  activeItem.value = null
+}
+
 </script>
 
 <template>
@@ -101,7 +120,8 @@ const handleShowMarkers = (markers: Marker[]) => {
             <tr
               v-for="(item, index) in daftarKomoditas"
               :key="index"
-              class="hover:bg-green-50/60 transition-colors duration-300"
+              class="hover:bg-green-50/60 transition-colors duration-300 cursor-pointer"
+              @click="openModal(item)"
             >
               <td class="px-6 py-3 font-medium text-gray-700">
                 {{ index + 1 }}
@@ -117,6 +137,40 @@ const handleShowMarkers = (markers: Marker[]) => {
         </table>
       </div>
     </div>
+    
+    <!-- Modal -->
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="fixed inset-0 z-50 flex items-center justify-center px-4"
+      >
+        <!-- backdrop -->
+        <div
+          class="absolute inset-0 bg-black/50"
+          @click="closeModal"
+        ></div>
+
+        <!-- modal panel -->
+        <div class="relative z-10 w-full max-w-xl bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div class="p-6">
+            <div class="flex items-start justify-between">
+              <h3 class="text-xl font-semibold text-gray-800">{{ activeItem?.nama }}</h3>
+              <button class="text-gray-400 hover:text-gray-600" @click="closeModal">✕</button>
+            </div>
+
+            <div class="mt-4 text-sm text-gray-700">
+              <p><strong>Kategori:</strong> {{ activeItem?.kategori }}</p>
+              <p class="mt-2"><strong>Lokasi:</strong> {{ activeItem?.lokasi }}</p>
+              <p class="mt-2"><strong>Keterangan:</strong> {{ activeItem?.keterangan }}</p>
+            </div>
+
+            <div class="mt-6 flex justify-end">
+              <button class="bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700" @click="closeModal">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </section>
   <FooterSecren/>
 </template>
