@@ -5,30 +5,30 @@ const emit = defineEmits(["showMarkers"]);
 
 const kategoriList = ref([
   {
-    nama: "Perdagangan",
+    nama: "Pertanian",
     icon: "https://cdn-icons-png.flaticon.com/512/2331/2331943.png",
     expanded: false,
     children: [
       {
-        nama: "Unggulan",
+        nama: "Hortikultura",
         expanded: false,
         children: [
           {
-            nama: "Pasar Modern",
+            nama: "Bayam",
             markers: [
-              { lat: -6.17, lng: 106.63, title: "Pasar Modern BSD" },
-              { lat: -6.20, lng: 106.64, title: "Pasar Modern Cikokol" },
+              { lat: -6.17, lng: 106.63, title: "Bayam 1" },
+              { lat: -6.20, lng: 106.64, title: "Bayam 2" },
             ],
           },
           {
-            nama: "Pasar Tradisional",
+            nama: "Kangkung",
             markers: [
-              { lat: -6.18, lng: 106.61, title: "Pasar Anyar" },
-              { lat: -6.19, lng: 106.65, title: "Pasar Lama" },
+              { lat: -6.18, lng: 106.61, title: "Kangkung 1" },
+              { lat: -6.19, lng: 106.65, title: "Kangkung 2" },
             ],
           },
           {
-            nama: "Distribusi Barang",
+            nama: "Melinjo",
             markers: [
               { lat: -6.22, lng: 106.66, title: "Gudang Utama" },
               { lat: -6.23, lng: 106.62, title: "Pusat Logistik" },
@@ -37,7 +37,7 @@ const kategoriList = ref([
         ],
       },
       {
-        nama: "Non-Unggulan",
+        nama: "Biofarmaka",
         expanded: false,
         children: [
           {
