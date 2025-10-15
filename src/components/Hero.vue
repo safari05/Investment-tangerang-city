@@ -73,12 +73,16 @@
         </div>
       </div>
 
-      <!-- Button -->
-      <button
-        class="mt-10 bg-white text-blue-700 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-blue-100 transition"
+      <!-- External link (opens in new tab) -->
+      <a
+        href="https://point.tangerangkota.go.id/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-10 inline-block bg-white text-blue-700 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-blue-100 transition text-center"
+        role="button"
       >
         KNOW MORE →
-      </button>
+      </a>
     </div>
   </section>
 </template>
